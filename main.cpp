@@ -1,6 +1,6 @@
 #include <cmath>
 #include "document.cpp"
-
+#include <time.h>
 
 void *Routine(void *rank);
 
@@ -10,9 +10,9 @@ pthread_cond_t sync_cond_var;
 
 MatPoint mat_points[QUANTITY];
 
-
-void printProgress(int step) {
-    printf("\r%d/%d", step+1, STEPS);
+void printProgress(int step)
+{
+    printf("\r%d/%d", step + 1, STEPS);
     fflush(stdout);
 }
 
@@ -37,17 +37,12 @@ void getForces(MatPoint *mat_points, int i, int j)
     pthread_mutex_unlock(&mat_points[j].f_mutex);
 }
 
-
-
-
-
 void moveMatPoints(MatPoint *mat_points, int i)
 {
 
     double dvx = mat_points[i].Fx / mat_points[i].mass * dt;
     double dvy = mat_points[i].Fy / mat_points[i].mass * dt;
 
-    
     mat_points[i].x = mat_points[i].x + (mat_points[i].vx + dvx / 2) * dt;
     mat_points[i].y = mat_points[i].y + (mat_points[i].vy + dvy / 2) * dt;
 
@@ -70,6 +65,8 @@ void *Routine(void *rank)
                 getForces(mat_points, i, j);
             }
         }
+
+
         pthread_mutex_lock(&sync_mutex);
         sync_counter++;
         if (sync_counter == THREAD_COUNT)
@@ -79,30 +76,31 @@ void *Routine(void *rank)
         }
         else
         {
-            while (pthread_cond_wait(&sync_cond_var, &sync_mutex) != 0)
-            {
-            }
+            pthread_cond_wait(&sync_cond_var, &sync_mutex);
         }
-
         pthread_mutex_unlock(&sync_mutex);
+
+
+
         for (int i = my_rank; i < QUANTITY; i = i + THREAD_COUNT)
         {
             moveMatPoints(mat_points, i);
         }
+
+        
         pthread_mutex_lock(&sync_mutex);
         sync_counter++;
         if (sync_counter == THREAD_COUNT)
         {
             print_mat_points_in_file(mat_points, document_with_coordinates, step);
             printProgress(step);
+
             sync_counter = 0;
             pthread_cond_broadcast(&sync_cond_var);
         }
         else
         {
-            while (pthread_cond_wait(&sync_cond_var, &sync_mutex) != 0)
-            {
-            }
+            pthread_cond_wait(&sync_cond_var, &sync_mutex);
         }
         pthread_mutex_unlock(&sync_mutex);
     }
@@ -125,6 +123,11 @@ int main()
         mat_points[row_index].Fy = 0;
     }
 
+    struct timespec start_wall_time, end_wall_time;
+    double time_spent;
+
+    clock_gettime(CLOCK_REALTIME, &start_wall_time);
+
     fopen(document_with_coordinates, "w");
     clock_t begin = clock();
 
@@ -143,8 +146,12 @@ int main()
     free(tread_handles);
 
     clock_t end = clock();
-
-    printf("\nThe elapsed time is %f seconds", (double)(end - begin) / CLOCKS_PER_SEC);
+    clock_gettime(CLOCK_REALTIME, &end_wall_time);
+    time_spent = (end_wall_time.tv_sec - start_wall_time.tv_sec) +
+                 (end_wall_time.tv_nsec - start_wall_time.tv_nsec) / 1e9;
+    
+    printf("\nThe elapsed cpu time is %f seconds", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("\nElapsed wall time %f", time_spent);
 
     pthread_cond_destroy(&sync_cond_var);
 

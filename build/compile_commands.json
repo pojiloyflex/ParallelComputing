@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/body/Projects/Parallel_Labs_own/build",
+  "command": "/usr/bin/clang++    -std=gnu++11 -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/Parallel_Labs_own.dir/main.cpp.o -c /Users/body/Projects/Parallel_Labs_own/main.cpp",
+  "file": "/Users/body/Projects/Parallel_Labs_own/main.cpp",
+  "output": "CMakeFiles/Parallel_Labs_own.dir/main.cpp.o"
+}
+]

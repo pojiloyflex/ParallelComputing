@@ -11,7 +11,7 @@
 #define STEPS 10000
 
 #define document_with_coordinates "coordinates.txt"
-#define THREAD_COUNT 8
+#define THREAD_COUNT 1
 
 struct MatPoint {
     double mass;
