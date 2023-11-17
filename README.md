@@ -1,6 +1,41 @@
 # ParallelComputing
 
 
+Iterations: 1000/1000 && Dots: 50
+ 
+threads number: 1
+The elapsed cpu time is 0.081471 seconds
+Elapsed wall time 0.082030%                                                                  
+ 
+threads number: 2
+The elapsed cpu time is 0.141145 seconds
+Elapsed wall time 0.109086%                                                                                
+ 
+threads number: 4
+The elapsed cpu time is 0.181839 seconds
+Elapsed wall time 0.109260%                                                                                
+ 
+threads number: 8
+The elapsed cpu time is 0.322933 seconds
+Elapsed wall time 0.145743%                                                                                
+ 
+Iterations: 1000/1000 && Dots: 1000
+ 
+threads number: 1
+The elapsed cpu time is 15.868278 seconds
+Elapsed wall time 15.998799%                                                                               
+ 
+threads number: 2
+The elapsed cpu time is 23.711053 seconds
+Elapsed wall time 12.205623%                                                                               
+ 
+threads number: 4
+The elapsed cpu time is 32.503039 seconds
+Elapsed wall time 9.325433%                                                                                
+ 
+threads number: 8
+The elapsed cpu time is 35.544821 seconds
+Elapsed wall time 6.962459%                
 
 https://github.com/pojiloyflex/ParallelComputing/assets/113837245/75f02012-40c9-4ac3-995b-95f001c1a13c
 
