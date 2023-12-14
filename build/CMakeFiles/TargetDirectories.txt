@@ -1,3 +1,0 @@
-/Users/body/Projects/Parallel_Labs_own/build/CMakeFiles/Parallel_Labs_own.dir
-/Users/body/Projects/Parallel_Labs_own/build/CMakeFiles/edit_cache.dir
-/Users/body/Projects/Parallel_Labs_own/build/CMakeFiles/rebuild_cache.dir
