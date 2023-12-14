@@ -4,7 +4,7 @@
 #include <iostream>
 #include <mpi.h>
 
-#include "Matrix.h"
+#include "matrix.h"
 
 /*
     To see matrix values, you shoud copy input below inside of condition rank == 0
